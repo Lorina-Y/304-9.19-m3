@@ -1,0 +1,53 @@
+---
+title: "Marriage Licenses across different civic centre"
+subtitle: "in bar chart"
+author: 
+  - Hanqing Yang
+thanks: "Code and data are available at: LINK."
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(tibble)
+
+data <- read_csv("../data/analysis_data/analysis_data.csv")
+
+```
+
+# Introduction
+
+This paper use data reference from @citeR, @opendatatoronto. This paper analyzes the number of marriage licenses issued across four civic center regions in Toronto—Etobicoke (ET), North York (NY), Toronto (TO), and Scarborough (SC)—from January 1, 2011, onward.
+
+# Data {#sec-data}
+
+Our data is of Toronto marriage licenses (@fig-marriages), from @opendatatoronto.
+
+```{r}
+#| label: fig-marriages
+#| fig-cap: Number of marriage licenses over time across different centre
+#| echo: false
+
+
+data |> 
+  ggplot(aes(x = date, y = marriage_licenses, fill =  civic_centre)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ civic_centre, nrow = 2)  +
+  theme_minimal() +
+  labs(title = "Marriage Licenses Issued Over Time across 4 region in Toronto",
+       x = "Date",
+       y = "Number of Marriage Licenses",
+       fill = "Civic Centre")
+
+```
+
+The bar plot illustrates the number of marriage licenses issued over time across four different civic center regions in Toronto: Etobicoke (ET), North York (NY), Toronto (TO), and Scarborough (SC). Each panel within the plot represents a different civic center, with bars showing the number of marriage licenses issued on specific dates. The bars are color-coded based on the number of marriage licenses issued, and the plot employs a minimal theme for clarity by @fig-marriages
